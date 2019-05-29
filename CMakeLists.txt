@@ -55,9 +55,11 @@ ${catkin_INCLUDE_DIRS}
 add_executable(test_overview src/test_overview.cpp)
 add_executable(test_urdf src/test_urdf.cpp)
 add_executable(test_boost src/test_boost.cpp)
+add_executable(test_valkyrie_model src/test_valkyrie_model.cpp)
 
 
 target_link_libraries(test_overview pinocchio ${catkin_LIBRARIES}) 
 target_link_libraries(test_urdf pinocchio ${Boost_LIBRARIES} ${catkin_LIBRARIES}) 
 target_link_libraries(test_boost pinocchio ${Boost_LIBRARIES} ${catkin_LIBRARIES}) 
+target_link_libraries(test_valkyrie_model pinocchio ${Boost_LIBRARIES} ${catkin_LIBRARIES})
 

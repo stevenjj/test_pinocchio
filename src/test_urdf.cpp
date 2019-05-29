@@ -17,4 +17,7 @@ int main(int argc, char ** argv)
   for (int k=0 ; k<model.njoints ; ++k)
     std::cout << model.names[k] << "\t: "
               << data.oMi[k].translation().transpose() << std::endl;
+
+  std::cout << "size of q: " << q.size() << std::endl;
+  std::cout << "num of joints: " << model.njoints << std::endl;
 }
