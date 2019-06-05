@@ -3,9 +3,11 @@
 #include "pinocchio/algorithm/joint-configuration.hpp"
 #include "pinocchio/algorithm/kinematics.hpp"
 
+#include <Configuration.h>
+
 int main(int argc, char ** argv)
 {
-  std::string filename = (argc<=1) ? "ur5.urdf" : argv[1];
+  std::string filename = (argc<=1) ? THIS_COM"models/Valkyrie/r5_urdf_rbdl.urdf" : argv[1];
   pinocchio::Model model;
   pinocchio::urdf::buildModel(filename,model);
   pinocchio::Data data(model);

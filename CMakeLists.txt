@@ -3,7 +3,6 @@ project(test_pinocchio)
 
 set(CMAKE_CXX_FLAGS "-std=c++11")
 
-
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -19,6 +18,9 @@ find_package(TinyXML 2.6 REQUIRED)
 find_package(YamlCpp 0.5.2 REQUIRED) # Using a custom FindYamlcpp.cmake 
 
 find_package(Boost 1.55.0 REQUIRED COMPONENTS system filesystem)
+
+find_package(assimp REQUIRED) # Needed by hpp-fcl
+
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
@@ -29,7 +31,8 @@ catkin_package(
 #  DEPENDS system_lib
 )
 
-find_library(pinocchio NAMES libpinocchio.so PATHS /usr/local/lib REQUIRED)
+# Location where pinocchio and fcl libraries live 
+link_directories(/usr/local/lib)
 
 ###########
 ## Build ##
@@ -46,7 +49,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+include
 /usr/local/include
 ${catkin_INCLUDE_DIRS}
 )
@@ -61,5 +64,5 @@ add_executable(test_valkyrie_model src/test_valkyrie_model.cpp)
 target_link_libraries(test_overview pinocchio ${catkin_LIBRARIES}) 
 target_link_libraries(test_urdf pinocchio ${Boost_LIBRARIES} ${catkin_LIBRARIES}) 
 target_link_libraries(test_boost pinocchio ${Boost_LIBRARIES} ${catkin_LIBRARIES}) 
-target_link_libraries(test_valkyrie_model pinocchio ${Boost_LIBRARIES} ${catkin_LIBRARIES})
+target_link_libraries(test_valkyrie_model pinocchio hpp-fcl assimp ${Boost_LIBRARIES} ${catkin_LIBRARIES})
 

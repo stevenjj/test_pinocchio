@@ -29,6 +29,20 @@
       <origin rpy="0 0 0" xyz="0.016691 -0.091397 -0.207875"/>
       <inertia ixx="0.24083413" ixy="-3.5915e-05" ixz="0.003699383" iyy="0.25689705" iyz="0.001333005" izz="0.023276352"/>
     </inertial>
+
+    <visual>
+      <geometry>
+        <mesh filename="package://val_desc/model/meshes/legs/lj3_right.dae"/>
+      </geometry>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://val_desc/model/meshes/legs/lj3_right.dae"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+
   </link>
 
   <link name="rightKneePitchLink">

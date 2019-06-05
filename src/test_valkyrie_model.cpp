@@ -1,20 +1,40 @@
+#define PINOCCHIO_WITH_HPP_FCL
+
 #include "pinocchio/multibody/model.hpp"
+#include "pinocchio/multibody/data.hpp"
+#include "pinocchio/multibody/geometry.hpp"
+
 #include "pinocchio/parsers/urdf.hpp"
+#include "pinocchio/parsers/srdf.hpp"
 #include "pinocchio/algorithm/joint-configuration.hpp"
 #include "pinocchio/algorithm/kinematics.hpp"
-
+#include "pinocchio/algorithm/geometry.hpp"
 #include <math.h>       
 
 
 #include "pinocchio/algorithm/jacobian.hpp"
 #include "pinocchio/algorithm/frames.hpp"
 
+#include <Configuration.h>
+
 int main(int argc, char ** argv)
 {
-  std::string filename = "r5_urdf_rbdl.urdf";
+  std::string filename = THIS_COM"models/Valkyrie/r5_urdf_rbdl.urdf";
+  std::string meshDir  = THIS_COM"/../val_model/";
+
   pinocchio::Model model;
   pinocchio::urdf::buildModel(filename, pinocchio::JointModelFreeFlyer(),model);
+
+  std::vector < std::string > packageDirs;
+  packageDirs.push_back(meshDir);
+  pinocchio::GeometryModel geom;
+  pinocchio::urdf::buildGeom(model, filename, pinocchio::COLLISION, geom, packageDirs);
+
   pinocchio::Data data(model);
+  pinocchio::GeometryData geomData(geom);
+
+  pinocchio::computeBodyRadius(model, geom, geomData);
+
 
   // Eigen::VectorXd q = pinocchio::randomConfiguration(model);
 
@@ -76,6 +96,7 @@ int main(int argc, char ** argv)
   pinocchio::Data::Matrix3x J_rpalm_trans = J_rpalm.topRows<3>() ;
   std::cout << J_rpalm_trans << std::endl;
 
+  std::cout << "num of body radius = " << geomData.radius.size() << std::endl;
 
 }
 
